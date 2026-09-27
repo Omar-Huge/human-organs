@@ -1,0 +1,8 @@
+node_modules
+.next
+models-src
+test-results
+playwright-report
+public/draco
+.git
+*.tsbuildinfo

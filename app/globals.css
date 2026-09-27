@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Soft Machinery — design tokens.
+
+   This block is the single source of truth for the palette. tests/content.test.ts
+   parses --paper and --void out of this file and asserts every entity accent clears
+   3:1 non-text contrast against both, so these values cannot drift away from the
+   content without failing the build.
+
+   The concept is an anatomy handbook with a window cut into it: the chrome is a cool
+   technical document, and the viewer is a dark aperture cut into that page. Apart from
+   the organ itself, the only saturated colour on screen is the selected organ's own
+   accent, which arrives at runtime as --accent.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --paper: #e6e9ec;
+  --graphite: #1f262e;
+  --drafting: #7c8892;
+  --trace: #d2d8dd;
+  --void: #161d26;
+  --signal: #3d7ea6;
+
+  /* Overwritten per selected entity by the client shell. The fallback is the
+     default entity's accent so the first paint is never uncoloured. */
+  --accent: #927318;
+
+  --bezel-radius: 2px;
+  --rail-height: 46px;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-graphite: var(--graphite);
+  --color-drafting: var(--drafting);
+  --color-trace: var(--trace);
+  --color-void: var(--void);
+  --color-signal: var(--signal);
+  --color-accent: var(--accent);
+
+  --font-display: var(--font-archivo);
+  --font-body: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+/* The design commits to a single look. There is no dark variant: the page IS the
+   light half and the aperture IS the dark half, so a prefers-color-scheme flip would
+   invert the central idea rather than accommodate it. */
+html {
+  color-scheme: light;
+}
+
+body {
+  background: var(--paper);
+  color: var(--graphite);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "kern" 1;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Display face is Archivo pushed to an expanded width — an equipment-nameplate
+   feel. The width axis is what makes it a deliberate partner to Plex Sans rather
+   than just a second grotesque. */
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: "wdth" 112;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* --------------------------------------------------------------------------
+   Focus. One colour everywhere, deliberately NOT the entity accent: a focus ring
+   that changed hue per organ would be a moving target for keyboard users, and
+   a dark accent would nearly vanish against the void.
+   -------------------------------------------------------------------------- */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+  border-radius: var(--bezel-radius);
+}
+
+/* --------------------------------------------------------------------------
+   Viewer chrome — the aperture.
+   -------------------------------------------------------------------------- */
+
+.aperture {
+  position: relative;
+  background: var(--void);
+  border-radius: var(--bezel-radius);
+  /* A recess rather than a drop shadow: the window is cut INTO the page, so the
+     light logic is an inner edge, not an object floating above it. */
+  box-shadow:
+    inset 0 1px 0 rgb(0 0 0 / 55%),
+    inset 0 0 0 1px rgb(31 38 46 / 22%),
+    0 0 0 1px var(--trace);
+  overflow: hidden;
+}
+
+.aperture canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* The canvas is a picture of an object, not an interactive text surface. Touch
+     drags must rotate the model rather than scroll the page. */
+  touch-action: none;
+}
+
+/* Corner ticks — drafting registration marks. Purely structural, drawn with the
+   chrome colour so they never compete with the accent. */
+.aperture::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  /* Four corners, two strokes each. */
+  background:
+    linear-gradient(var(--drafting), var(--drafting)) 0 0 / 1px 14px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 0 0 / 14px 1px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 100% 0 / 1px 14px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 100% 0 / 14px 1px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 0 100% / 1px 14px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 0 100% / 14px 1px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 100% 100% / 1px 14px no-repeat,
+    linear-gradient(var(--drafting), var(--drafting)) 100% 100% / 14px 1px no-repeat;
+  opacity: 0.42;
+}
+
+/* --------------------------------------------------------------------------
+   The drafted callout — the signature element.
+
+   Selecting a hotspot draws a leader line from the marker out to a card pinned at
+   the aperture's inside edge, the way a dimension callout points at a part on an
+   engineering drawing. The line's geometry is written imperatively from the render
+   loop so it tracks the marker while you orbit; only the draw-on animation lives
+   here.
+   -------------------------------------------------------------------------- */
+
+.callout-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.callout-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  /* Large enough to cover any path this line can take across the aperture. */
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: callout-draw 340ms cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+@keyframes callout-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.callout-anchor {
+  fill: var(--accent);
+}
+
+.callout-card {
+  position: absolute;
+  width: 210px;
+  padding: 9px 11px 10px;
+  background: var(--paper);
+  border: 1px solid var(--trace);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--bezel-radius);
+  pointer-events: auto;
+  animation: callout-appear 220ms ease-out both;
+}
+
+@keyframes callout-appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.callout-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--drafting);
+}
+
+.callout-title {
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--graphite);
+}
+
+.callout-detail {
+  margin-top: 3px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--drafting);
+}
+
+.viewer-status {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--drafting);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Tool rail.
+   -------------------------------------------------------------------------- */
+
+.tool-rail {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: var(--rail-height);
+  padding: 0 6px;
+  border-top: 1px solid var(--trace);
+}
+
+.tool-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: var(--bezel-radius);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.tool-button:hover:not(:disabled) {
+  background: var(--trace);
+}
+
+.tool-button:disabled {
+  color: var(--drafting);
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    // Node's native TypeScript stripping resolves imports as ESM, which requires an
+    // explicit file extension. The test files therefore import "./x.ts" directly; this
+    // flag lets tsc accept that spelling. Safe because noEmit is on — tsc never has to
+    // decide what the extension should become in output.
+    "allowImportingTsExtensions": true,
+    // The test suite runs through Node's strip-only TypeScript support, which rejects
+    // any syntax that emits code rather than merely being erased — enums, namespaces,
+    // constructor parameter properties. Without this flag those fail at test runtime
+    // with a parser error; with it, tsc rejects them at typecheck.
+    "erasableSyntaxOnly": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "soft-machinery",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "sync:decoders": "node scripts/sync-decoders.mjs",
+    "fetch:models": "node scripts/fetch-models.mjs",
+    "build:organs": "node scripts/build-organs.mjs",
+    "optimize:models": "node scripts/optimize-models.mjs",
+    "write:credits": "node scripts/write-credits.mjs",
+    "postinstall": "node scripts/sync-decoders.mjs",
+    "test": "node --test \"tests/**/*.test.ts\"",
+    "test:e2e": "playwright test",
+    "capture": "node scripts/capture-screenshots.mjs"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.30.0",
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.4.2",
+    "@gltf-transform/core": "^4.4.2",
+    "@gltf-transform/extensions": "^4.4.2",
+    "@playwright/test": "^1.62.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.185.4",
+    "draco3dgltf": "^1.5.7",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "meshoptimizer": "^1.2.0",
+    "obj2gltf": "^3.2.0",
+    "sharp": "^0.35.3",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "yauzl": "^3.4.0"
+  }
+}

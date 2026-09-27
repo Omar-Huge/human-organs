@@ -1,0 +1,93 @@
+
+heart  (83 elements, 91 sub-structures)
+  FMA7165      46 elements  right side of heart
+  FMA7166      36 elements  left side of heart
+  FMA50039     29 elements  right coronary artery
+  FMA50040     25 elements  left coronary artery
+  FMA3862      18 elements  anterior interventricular branch of left coronary artery
+  FMA3860      10 elements  diagonal branch of anterior descending branch of left coronary artery
+  FMA7098      10 elements  right ventricle
+  FMA3837       9 elements  first posterior ventricular branch of right coronary artery
+  FMA3840       9 elements  posterior interventricular branch of right coronary artery
+  FMA7101       8 elements  left ventricle
+  FMA3895       6 elements  circumflex branch of left coronary artery
+  FMA7097       6 elements  left atrium
+
+brain  (59 elements, 86 sub-structures)
+  FMA61992     45 elements  forebrain
+  FMA62000     38 elements  telencephalon
+  FMA61819     19 elements  left cerebral hemisphere
+  FMA67292     19 elements  right cerebral hemisphere
+  FMA79876     11 elements  brainstem
+  FMA46448      8 elements  frontal part of head
+  FMA61993      7 elements  midbrain
+  FMA62001      7 elements  diencephalon
+  FMA67687      6 elements  hindbrain
+  FMA242787     5 elements  ventricular system of brain
+  FMA62003      4 elements  metencephalon
+  FMA62008      4 elements  hypothalamus
+
+lungs  (280 elements, 148 sub-structures)
+  FMA85055    156 elements  right pulmopleural compartment
+  FMA85056    124 elements  left pulmopleural compartment
+  FMA7337      69 elements  lower lobe of right lung
+  FMA7370      68 elements  upper lobe of left lung
+  FMA7333      62 elements  upper lobe of right lung
+  FMA7371      56 elements  lower lobe of left lung
+  FMA67994     54 elements  intrapulmonary part of right pulmonary artery
+  FMA67995     37 elements  intrapulmonary part of left pulmonary artery
+  FMA68319     32 elements  inferomedial part of right bronchial tree
+  FMA68658     30 elements  inferomedial branch of right pulmonary artery
+  FMA68002     26 elements  intrapulmonary part of right superior pulmonary vein
+  FMA7383      25 elements  middle lobe of lung
+
+liver  (60 elements, 74 sub-structures)
+  FMA13363     25 elements  left lobe of liver
+  FMA13362     17 elements  right lobe of liver
+  FMA14772     16 elements  hepatic artery proper
+  FMA68016     14 elements  intrahepatic biliary tree
+  FMA15414      9 elements  right portal vein
+  FMA14778      8 elements  right hepatic artery
+  FMA15415      8 elements  left portal vein
+  FMA71858      8 elements  left hepatic biliary tree
+  FMA14779      7 elements  left hepatic artery
+  FMA71857      6 elements  right hepatic biliary tree
+  FMA15809      5 elements  right hemiliver
+  FMA15422      3 elements  posterior branch of right portal vein
+
+kidneys  (2 elements, 0 sub-structures)
+
+eyeball  (8 elements, 10 sub-structures)
+  FMA58099      4 elements  wall of right eyeball
+  FMA58107      3 elements  vascular layer of right eyeball
+  FMA58105      2 elements  fibrous layer of right eyeball
+  FMA58299      2 elements  right choroid
+  FMA58236      1 elements  right iris
+  FMA58239      1 elements  right cornea
+  FMA58242      1 elements  right lens
+  FMA58271      1 elements  right sclera
+  FMA58828      1 elements  right vitreous body
+  FMA58839      1 elements  suspensory ligament of right lens
+
+intestine  (63 elements, 23 sub-structures)
+  FMA7208      32 elements  ileum
+  FMA7207      23 elements  jejunum
+  FMA14966     12 elements  distal part of ileum
+  FMA14964     10 elements  proximal part of ileum
+  FMA14965     10 elements  middle part of ileum
+  FMA16983     10 elements  distal part of jejunum
+  FMA16981      8 elements  proximal part of jejunum
+  FMA16982      5 elements  middle part of jejunum
+  FMA14619      3 elements  wall of large intestine
+  FMA14971      3 elements  muscle layer of large intestine
+  FMA7206       1 elements  duodenum
+  FMA11338      1 elements  ileocecal junction
+
+pancreas  (4 elements, 3 sub-structures)
+  FMA63103      2 elements  pancreatic duct tree
+  FMA10419      1 elements  pancreatic duct
+  FMA63120      1 elements  parenchyma of pancreas
+
+skin  (1 elements, 2 sub-structures)
+  FMA72979      1 elements  integumentary system
+  FMA74657      1 elements  integument

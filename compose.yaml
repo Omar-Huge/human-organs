@@ -1,0 +1,16 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      # Live-edit the source from the host.
+      - .:/app
+      # Keep the Linux-built dependencies and build cache out of the host's copies.
+      - /app/node_modules
+      - /app/.next
+    # File events from the Mac don't reach the Linux VM, so the dev server has to poll.
+    # Turbopack ignores its polling option here; webpack's watcher honours it.
+    command: sh -c "npm run sync:decoders && npx next dev --webpack -H 0.0.0.0"
+    environment:
+      - WATCHPACK_POLLING=true
