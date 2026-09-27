@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "sync:decoders": "node scripts/sync-decoders.mjs",
     "fetch:models": "node scripts/fetch-models.mjs",
     "build:organs": "node scripts/build-organs.mjs",
